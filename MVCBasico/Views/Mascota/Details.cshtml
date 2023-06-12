@@ -1,0 +1,42 @@
+﻿@model MVCBasico.Models.Mascota
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Mascota</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreMascota)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NombreMascota)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UltimaVezAlimentado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UltimaVezAlimentado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TiempoMaximoSinAlimentar)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TiempoMaximoSinAlimentar)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoDeMascota)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TipoDeMascota)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
