@@ -1,0 +1,12 @@
+Documentación:
+
+Objetivo: El objetivo de esta aplicación será proporcionar al usuario con una mascota virtual a la que deberá alimentar para mantenerla feliz.
+
+Funcionalidades básicas: Cuando el usuario inicie sesión este elegirá un tipo de mascota que le guste, este deberá alimentarla diariamente para que esta esté feliz.
+
+Prioridad de funcionalidades:
+
+- logueo/deslogueo de usuario
+- seleccion de una o multiples mascotas por parte del usuario
+- alimentar mascota/s 
+- Revisar estado de felicidad de mascota/s
