@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCBasico.Context;
 using MVCBasico.Models;
+using NuGet.Protocol.Core.Types;
 
 namespace MVCBasico.Controllers
 {
@@ -88,6 +89,17 @@ namespace MVCBasico.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Profile(Usuario usuario)
+        {
+            var mascotas = _context.Mascota.Where(m => m.UserID == usuario.UserID);
+
+            if (mascotas == null) 
+            { 
+
+            }
+            return View(mascotas);
         }
 
         private bool UsuarioExists(String username)

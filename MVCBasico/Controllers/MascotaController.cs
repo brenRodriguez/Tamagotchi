@@ -36,8 +36,9 @@ namespace MVCBasico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NombreMascota,UltimaVezAlimentado,TiempoMaximoSinAlimentar,TipoDeMascota")] Mascota mascota)
+        public async Task<IActionResult> Create(String nombreMascota, TipoMascota tipoMascota, Usuario usuario) 
         {
+            Mascota mascota = new(nombreMascota, tipoMascota, usuario);
             if (ModelState.IsValid)
             {
                 _context.Add(mascota);
@@ -78,7 +79,7 @@ namespace MVCBasico.Controllers
             {
                 _context.Mascota.Remove(mascota);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
