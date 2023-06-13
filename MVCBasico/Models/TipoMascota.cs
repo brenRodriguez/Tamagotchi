@@ -9,7 +9,6 @@ namespace MVCBasico.Models
     {
         Furby,
         Gato,
-        Perro,
-        Shrek
+        Perro
     }
 }

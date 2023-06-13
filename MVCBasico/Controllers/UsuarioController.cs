@@ -25,26 +25,8 @@ namespace MVCBasico.Controllers
               return View(await _context.Usuarios.ToListAsync());
         }
 
-        // GET: Usuario/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Usuarios == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuarios
-                .FirstOrDefaultAsync(m => m.UserID == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return View(usuario);
-        }
-
         // GET: Usuario/Create
-        public IActionResult Create()
+        public IActionResult Registrar()
         {
             return View();
         }
@@ -54,8 +36,25 @@ namespace MVCBasico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserID,NombreUsuario,Contrasena,FechaInscripto")] Usuario usuario)
+        public async Task<IActionResult> Registrar([Bind("UserID,NombreUsuario,Contrasena")] Usuario usuario)
         {
+
+            Console.WriteLine(UsuarioExists(usuario.NombreUsuario));
+
+            if (usuario == null || _context.Usuarios == null)
+            {
+                return RedirectToAction(nameof(Registrar));
+            }
+
+            var usuario_db = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.NombreUsuario == usuario.NombreUsuario);
+
+
+            if (usuario_db != null)
+            {
+                return RedirectToAction(nameof(Registrar));
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(usuario);
@@ -65,97 +64,35 @@ namespace MVCBasico.Controllers
             return View(usuario);
         }
 
-        // GET: Usuario/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet]
+        public IActionResult Login()
         {
-            if (id == null || _context.Usuarios == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-            return View(usuario);
+            return View();
         }
 
-        // POST: Usuario/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserID,NombreUsuario,Contrasena,FechaInscripto")] Usuario usuario)
+        public async Task<IActionResult> Login(String NombreUsuario, String Contrasena)
         {
-            if (id != usuario.UserID)
+            var usuario_db = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.NombreUsuario == NombreUsuario);
+
+            if (usuario_db == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Registrar));
             }
 
-            if (ModelState.IsValid)
+            if (!usuario_db.Contrasena.Equals(Contrasena))
             {
-                try
-                {
-                    _context.Update(usuario);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UsuarioExists(usuario.UserID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(usuario);
-        }
-
-        // GET: Usuario/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Usuarios == null)
-            {
-                return NotFound();
+                return RedirectToAction(nameof(Registrar));
             }
 
-            var usuario = await _context.Usuarios
-                .FirstOrDefaultAsync(m => m.UserID == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return View(usuario);
-        }
-
-        // POST: Usuario/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Usuarios == null)
-            {
-                return Problem("Entity set 'TamagochiDatabaseContext.Usuarios'  is null.");
-            }
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario != null)
-            {
-                _context.Usuarios.Remove(usuario);
-            }
-            
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UsuarioExists(int id)
+        private bool UsuarioExists(String username)
         {
-          return _context.Usuarios.Any(e => e.UserID == id);
+          return _context.Usuarios.Any(e => e.NombreUsuario == username);
         }
     }
 }
