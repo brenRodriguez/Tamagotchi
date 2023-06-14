@@ -46,13 +46,14 @@ namespace MVCBasico.Controllers
                 return RedirectToAction(nameof(Registrar));
             }
 
-            var usuario_db = await _context.Usuarios
-               .FirstOrDefaultAsync(u => u.NombreUsuario == usuario.NombreUsuario);
+            var usuarioExists = await _context.Usuarios
+                .AnyAsync(u => u.NombreUsuario == usuario.NombreUsuario);
 
 
-            if (usuario_db != null)
+            if (usuarioExists)
             {
-                return RedirectToAction(nameof(Registrar));
+                ModelState.AddModelError(string.Empty, "El nombre de usuario ya está en uso");
+                return View();
             }
 
             if (ModelState.IsValid)
