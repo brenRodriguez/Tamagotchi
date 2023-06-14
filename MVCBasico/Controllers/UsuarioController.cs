@@ -40,20 +40,20 @@ namespace MVCBasico.Controllers
         public async Task<IActionResult> Registrar([Bind("UserID,NombreUsuario,Contrasena")] Usuario usuario)
         {
 
-            Console.WriteLine(UsuarioExists(usuario.NombreUsuario));
 
             if (usuario == null || _context.Usuarios == null)
             {
                 return RedirectToAction(nameof(Registrar));
             }
 
-            var usuario_db = await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.NombreUsuario == usuario.NombreUsuario);
+            var usuarioExists = await _context.Usuarios
+                .AnyAsync(u => u.NombreUsuario == usuario.NombreUsuario);
 
 
-            if (usuario_db != null)
+            if (usuarioExists)
             {
-                return RedirectToAction(nameof(Registrar));
+                ModelState.AddModelError(string.Empty, "El nombre de usuario ya está en uso");
+                return View();
             }
 
             if (ModelState.IsValid)
@@ -93,10 +93,10 @@ namespace MVCBasico.Controllers
 
         public IActionResult Profile(Usuario usuario)
         {
-            var mascotas = _context.Mascota.Where(m => m.UserID == usuario.UserID);
+            var mascotas = _context.Mascota.Where(m => m.Usuario.UserID == usuario.UserID).ToListAsync();
 
             if (mascotas == null) 
-            { 
+            {
 
             }
             return View(mascotas);

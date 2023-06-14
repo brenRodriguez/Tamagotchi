@@ -36,9 +36,9 @@ namespace MVCBasico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(String nombreMascota, TipoMascota tipoMascota, Usuario usuario) 
+        public async Task<IActionResult> Create(String nombreMascota, TipoMascota tipoDeMascota, int userID) 
         {
-            Mascota mascota = new(nombreMascota, tipoMascota, usuario);
+            Mascota mascota = new Mascota(nombreMascota, tipoDeMascota, userID);
             if (ModelState.IsValid)
             {
                 _context.Add(mascota);
