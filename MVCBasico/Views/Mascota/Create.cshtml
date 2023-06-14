@@ -18,18 +18,13 @@
                 <span asp-validation-for="NombreMascota" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UltimaVezAlimentado" class="control-label"></label>
-                <input asp-for="UltimaVezAlimentado" class="form-control" />
-                <span asp-validation-for="UltimaVezAlimentado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TiempoMaximoSinAlimentar" class="control-label"></label>
-                <input asp-for="TiempoMaximoSinAlimentar" class="form-control" />
-                <span asp-validation-for="TiempoMaximoSinAlimentar" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="TipoDeMascota" class="control-label"></label>
-                <select asp-for="TipoDeMascota" class="form-control"></select>
+                <select asp-for="TipoDeMascota" class="form-control">
+                    @foreach (var option in ViewBag.TipoDeMascotaOptions)
+                    {
+                        <option value="@option.Value">@option.Text</option>
+                    }
+                </select>
                 <span asp-validation-for="TipoDeMascota" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCBasico.Context;
 using MVCBasico.Models;
+using NuGet.Protocol.Core.Types;
 
 namespace MVCBasico.Controllers
 {
@@ -38,30 +42,29 @@ namespace MVCBasico.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registrar([Bind("UserID,NombreUsuario,Contrasena")] Usuario usuario)
         {
-
-            Console.WriteLine(UsuarioExists(usuario.NombreUsuario));
-
             if (usuario == null || _context.Usuarios == null)
             {
-                return RedirectToAction(nameof(Registrar));
+                TempData["Error"] = "Los datos ingresados son Invalidos.";
+                return View();
             }
 
-            var usuario_db = await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.NombreUsuario == usuario.NombreUsuario);
+            var usuarioExists = await _context.Usuarios
+                .AnyAsync(u => u.NombreUsuario == usuario.NombreUsuario);
 
-
-            if (usuario_db != null)
+            if (usuarioExists)
             {
-                return RedirectToAction(nameof(Registrar));
+                TempData["Error"] = "El nombre de usuario ya está en uso";
+                return View();
             }
 
             if (ModelState.IsValid)
             {
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                await Login(usuario.NombreUsuario, usuario.Contrasena);
             }
-            return View(usuario);
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -79,15 +82,45 @@ namespace MVCBasico.Controllers
 
             if (usuario_db == null)
             {
-                return RedirectToAction(nameof(Registrar));
+                TempData["Error"] = "El nombre de usuario no existe.";
+                return RedirectToAction(nameof(Login));
             }
 
             if (!usuario_db.Contrasena.Equals(Contrasena))
             {
-                return RedirectToAction(nameof(Registrar));
+                TempData["Error"] = "La contraseña es incorrecta.";
+                return RedirectToAction(nameof(Login));
             }
 
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, usuario_db.NombreUsuario),
+                new Claim("IdUsuario", usuario_db.UserID.ToString()),
+            };
+
+            var identity = new ClaimsIdentity(claims, "Cookies");
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync("Cookies", principal);
+
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Profile(Usuario usuario)
+        {
+            var mascotas = _context.Mascota.Where(m => m.Usuario.UserID == usuario.UserID).ToListAsync();
+
+            if (mascotas == null)
+            {
+
+            }
+            return View(mascotas);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+            return RedirectToAction("Index");
         }
 
         private bool UsuarioExists(String username)
