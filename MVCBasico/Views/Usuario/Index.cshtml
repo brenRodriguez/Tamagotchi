@@ -6,9 +6,21 @@
 
 <h1>Index</h1>
 
+<div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Nombre de Mascota:</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Escribe un nombre para tu nueva mascota...">
+</div>
+<select class="form-select form-select-lg mb-3" aria-label="Default select example">
+    <option selected>Selecciona un tipo de mascota</option>
+    <option value="1">Furby</option>
+    <option value="2">Shrek</option>
+    <option value="3">Gato</option>
+    <option value="4">Perro</option>
+</select> 
 <p>
-    <a asp-action="Login">Create New</a>
-</p>
+    <a asp-action="Login">Crear nueva Mascota</a> 
+@*    aca se crea la nueva mascota con los datos del form..
+*@</p>
 <table class="table">
     <thead>
         <tr>
