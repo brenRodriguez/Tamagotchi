@@ -4,11 +4,11 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>Regsistrar Usuario</h1>
+<h1 class="text-center">Registrate</h1>
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row d-flex justify-content-center align-items-center ">
+    <div class="col-md-4 d-flex justify-content-center align-items-center">
         <form asp-action="Registrar">
             @if (!string.IsNullOrEmpty(TempData["Error"] as string))
             {
@@ -18,17 +18,17 @@
             }
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NombreUsuario" class="control-label"></label>
+                <label asp-for="NombreUsuario" class="control-label">Nombre de usuario:</label>
                 <input asp-for="NombreUsuario" class="form-control" />
                 <span asp-validation-for="NombreUsuario" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Contrasena" class="control-label"></label>
+                <label asp-for="Contrasena" class="control-label">Contraseña:</label>
                 <input type="password" asp-for="Contrasena" class="form-control" />
                 <span asp-validation-for="Contrasena" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
+            <div class="form-group d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Crear cuenta</button>
             </div>
         </form>
     </div>

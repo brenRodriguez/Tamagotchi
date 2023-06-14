@@ -1,0 +1,75 @@
+﻿body {
+    font-family: 'Droid Sans', helvetica, sans-serif !important;
+}
+
+input {
+    border: none !important;
+    outline: none !important;
+    font-size: 1rem !important;
+    text-indent: 5px !important;
+    width: 90% !important;
+    height: 2rem !important;
+    background-color: #ecf0f1 !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    -o-appearance: none !important;
+    appearance: none !important;
+    padding: 1% !important;
+}
+
+    input:focus {
+        opacity: .6 !important;
+    }
+
+form {
+    min-width: 300px;
+    max-width: 400px;
+    padding: 20px;
+    margin: 0 auto;
+    background: #ffffff59;
+    -webkit-box-shadow: 3px 3px 23px -9px rgba(0,0,0,0.86);
+    -moz-box-shadow: 3px 3px 23px -9px rgba(0,0,0,0.86);
+    box-shadow: 3px 3px 23px -9px rgba(0,0,0,0.86);
+}
+.pet-main-container {
+    width: 100%;
+    background: #b5f0f1;
+    padding: 36px;
+}
+.pet-container {
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    width: 450px;
+    height:600px;
+    padding:16px;
+    border-radius: 6px;
+    background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+}
+.pet-name {
+    color: white;
+    font-weight: 700;
+}
+
+.pet-img-container img {
+    height: 300px;
+    width: 250px;
+}
+.pet-img-container {
+    opacity: 1; /* Ejemplo: transparencia del 50% */
+    background: transparent;
+}
+.feed-btn {
+    border-radius: 6px;
+    border: none;
+    max-width: 100px;
+    padding: 6px 12px;
+    color: #ffffff;
+    background: #fdbb2d;
+    font-weight: 600;
+    margin-top: 16px;
+}
+.pet-container span {
+    font-weight: 600;
+}
