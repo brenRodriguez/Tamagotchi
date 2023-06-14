@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -39,20 +42,18 @@ namespace MVCBasico.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registrar([Bind("UserID,NombreUsuario,Contrasena")] Usuario usuario)
         {
-
-
             if (usuario == null || _context.Usuarios == null)
             {
-                return RedirectToAction(nameof(Registrar));
+                TempData["Error"] = "Los datos ingresados son Invalidos.";
+                return View();
             }
 
             var usuarioExists = await _context.Usuarios
                 .AnyAsync(u => u.NombreUsuario == usuario.NombreUsuario);
 
-
             if (usuarioExists)
             {
-                ModelState.AddModelError(string.Empty, "El nombre de usuario ya está en uso");
+                TempData["Error"] = "El nombre de usuario ya está en uso";
                 return View();
             }
 
@@ -62,6 +63,7 @@ namespace MVCBasico.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(usuario);
         }
 
@@ -80,13 +82,26 @@ namespace MVCBasico.Controllers
 
             if (usuario_db == null)
             {
-                return RedirectToAction(nameof(Registrar));
+                TempData["Error"] = "El nombre de usuario no existe.";
+                return RedirectToAction(nameof(Login));
             }
 
             if (!usuario_db.Contrasena.Equals(Contrasena))
             {
-                return RedirectToAction(nameof(Registrar));
+                TempData["Error"] = "La contraseña es incorrecta.";
+                return RedirectToAction(nameof(Login));
             }
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, usuario_db.NombreUsuario),
+                new Claim("IdUsuario", usuario_db.UserID.ToString()),
+            };
+
+            var identity = new ClaimsIdentity(claims, "Cookies");
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync("Cookies", principal);
 
             return RedirectToAction(nameof(Index));
         }
@@ -100,6 +115,12 @@ namespace MVCBasico.Controllers
 
             }
             return View(mascotas);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+            return RedirectToAction("Index");
         }
 
         private bool UsuarioExists(String username)

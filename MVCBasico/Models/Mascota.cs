@@ -11,6 +11,9 @@ namespace MVCBasico.Models
             NombreMascota = nombreMascota;
             TipoDeMascota = tipoDeMascota;
             UserID = userID;
+            UltimaVezAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            TiempoMaximoSinAlimentar = TipoDeMascota.getMaxSinAlimentar();
+
         }
 
         [Key]
@@ -27,22 +30,9 @@ namespace MVCBasico.Models
         [Required]
         public Usuario Usuario { get; set; }
 
-        
-
         [Required]
-        public long UltimaVezAlimentado 
-        { 
-            get { return UltimaVezAlimentado; }
-            set { this.UltimaVezAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds(); }
-        }
-
-
-
+        public long UltimaVezAlimentado {get; set;}
         [Required]
-        public float TiempoMaximoSinAlimentar
-        {
-            get { return TiempoMaximoSinAlimentar; }
-            set { this.TiempoMaximoSinAlimentar = this.TipoDeMascota.getMaxSinAlimentar(); }
-        }     
+        public float TiempoMaximoSinAlimentar{get; set;}     
     }
 }

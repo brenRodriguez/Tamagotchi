@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -28,17 +30,32 @@ namespace MVCBasico.Controllers
         // GET: Mascota/Create
         public IActionResult Create()
         {
+            ViewBag.TipoDeMascotaOptions = Enum.GetValues(typeof(TipoMascota))
+            .Cast<TipoMascota>()
+            .Select(e => new SelectListItem
+            {
+                Value = e.ToString(),
+                Text = e.ToString()
+            }).ToList();
+
+
             return View();
         }
 
+        // string nombreUsuario = User.Identity.Name;
         // POST: Mascota/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(String nombreMascota, TipoMascota tipoDeMascota, int userID) 
+        public async Task<IActionResult> Create(String nombreMascota, TipoMascota tipoDeMascota) 
         {
-            Mascota mascota = new Mascota(nombreMascota, tipoDeMascota, userID);
+            int userId = int.Parse(User.FindFirstValue("IdUsuario"));
+            Usuario usuario = await _context.Usuarios.FindAsync(userId);
+
+            Mascota mascota = new Mascota(nombreMascota, tipoDeMascota, userId);
+            mascota.Usuario = usuario;
+
             if (ModelState.IsValid)
             {
                 _context.Add(mascota);

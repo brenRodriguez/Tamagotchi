@@ -39,10 +39,23 @@ namespace MVCBasico
                       options => options.UseSqlServer(Configuration["ConnectionString:Connection"]));
 
             services.AddMvc().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-                    //.SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            //.SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 
             // //services.AddControllersWithViews();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "Cookies";
+            })
+            .AddCookie("Cookies", options =>
+            {
+                options.Cookie.Name = "TamagochiCoockie";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(20); // Configura el tiempo de expiración de la cookie de sesión
+                options.LoginPath = "/Usuario/Login"; // Especifica la ruta para iniciar sesión
+                options.LogoutPath = "/Usuario/Logout";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,13 +77,18 @@ namespace MVCBasico
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
+            // Aca se procesan las rutas
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
+
         }
     }
 }
