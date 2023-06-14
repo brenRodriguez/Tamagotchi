@@ -106,9 +106,10 @@ namespace MVCBasico.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Profile(Usuario usuario)
+        public async Task<IActionResult> Profile()
         {
-            var mascotas = _context.Mascota.Where(m => m.Usuario.UserID == usuario.UserID).ToListAsync();
+            int userId = int.Parse(User.FindFirstValue("IdUsuario"));
+            var mascotas = await _context.Mascota.Where(m => m.Usuario.UserID == userId).ToListAsync();
 
             if (mascotas == null)
             {
