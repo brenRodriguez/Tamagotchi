@@ -61,10 +61,10 @@ namespace MVCBasico.Controllers
             {
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                await Login(usuario.NombreUsuario, usuario.Contrasena);
             }
 
-            return View(usuario);
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
