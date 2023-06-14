@@ -110,7 +110,7 @@ namespace MVCBasico.Controllers
         {
             var mascotas = _context.Mascota.Where(m => m.Usuario.UserID == usuario.UserID).ToListAsync();
 
-            if (mascotas == null) 
+            if (mascotas == null)
             {
 
             }
