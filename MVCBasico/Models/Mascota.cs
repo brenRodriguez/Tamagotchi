@@ -63,8 +63,7 @@ namespace MVCBasico.Models
             {
                 return Estado.SATISFECHO;
             }
-          
-            return Estado.SATISFECHO;
+ 
         }
 
     }

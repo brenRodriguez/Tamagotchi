@@ -90,21 +90,21 @@ namespace MVCBasico.Controllers
         {
             if (_context.Mascota == null)
             {
-                return Problem("Entity set 'TamagochiDatabaseContext.Mascota'  is null.");
+                return Problem("Mascota no encontrada");
             }
             var mascota = await _context.Mascota.FindAsync(id);
             if (mascota != null)
             {
                 _context.Mascota.Remove(mascota);
             }
-
             await _context.SaveChangesAsync();
+            TempData["Error"] = "Mascota eliminada Exitosamente.";
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> Profile()
         {
             int userId = int.Parse(User.FindFirstValue("IdUsuario"));
-            var mascotas = await _context.Mascota.Where(m => m.Usuario.UserID == userId).ToListAsync();
+            var mascotas = await _context.Mascota.Where(m => m.UserID == userId).ToListAsync();
 
             if (mascotas.Count == 0)
             {
