@@ -76,11 +76,17 @@ namespace MVCBasico.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (mascota == null)
             {
-                return NotFound();
+                TempData["Error"] = "Ocurrio un Error al eliminar tu Mascota";
+                RedirectToAction(nameof(Profile));
             }
+            if (mascota != null)
+            {
+                _context.Mascota.Remove(mascota);
+            }
+            await _context.SaveChangesAsync();
 
-            TempData["Error"] = "Mascota eliminada Exitosamente.";
-            return RedirectToAction(nameof(Index));
+            TempData["Error"] = "Mascota Eliminada Exitosamente.";
+            return RedirectToAction(nameof(Profile));
         }
 
         // POST: Mascota/Delete/5
@@ -112,6 +118,15 @@ namespace MVCBasico.Controllers
                 return RedirectToAction(nameof(Create));
             }
             return View(mascotas);
+        }
+
+        public async Task<IActionResult> Alimentar(int id)
+        {
+            var mascota_db = await _context.Mascota.FirstOrDefaultAsync(n => n.Id == id);
+            mascota_db.UltimaVezAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            await _context.SaveChangesAsync();
+            TempData["Error"] = "ñam ñam delicius!";
+            return RedirectToAction(nameof(Profile));
         }
 
         private bool MascotaExists(int id)

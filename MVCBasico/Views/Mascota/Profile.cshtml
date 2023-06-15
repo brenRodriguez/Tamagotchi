@@ -1,0 +1,68 @@
+﻿@model IEnumerable<MVCBasico.Models.Mascota>
+@{
+    ViewData["Title"] = "Tus Mascotas";
+}
+
+
+<p>
+    <a asp-controller="Mascota" asp-action="Create">Create New</a>
+</p>
+<div>
+    @if (!string.IsNullOrEmpty(TempData["Error"] as string))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["Error"]
+        </div>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NombreMascota)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UltimaVezAlimentado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiempoMaximoSinAlimentar)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoDeMascota)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreMascota)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UltimaVezAlimentado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TiempoMaximoSinAlimentar)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoDeMascota)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estado)
+                    </td>
+
+                    <td>
+                        <a asp-controller="Mascota" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                         | 
+                        <a asp-controller="Mascota" asp-action="Alimentar" asp-route-id="@item.Id">Alimentar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
