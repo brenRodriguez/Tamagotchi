@@ -46,19 +46,25 @@ namespace MVCBasico.Models
             get
             {
                 return calcularEstado();
-            } 
-            //set
-            //{
-
-            //}
+            }
          }
 
         private Estado calcularEstado()
         {
-            long tiempoDesdeAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-            if (this.)
-                
-            return Estado.FELIZ;
+            long tiempoDesdeAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - this.UltimaVezAlimentado;
+
+            if (tiempoDesdeAlimentado > this.TiempoMaximoSinAlimentar)
+            {
+                return Estado.MUERTO;
+            } else if (tiempoDesdeAlimentado > this.TiempoMaximoSinAlimentar / 2)
+            {
+                return Estado.HAMBRIENTO;
+            } else
+            {
+                return Estado.SATISFECHO;
+            }
+          
+            return Estado.SATISFECHO;
         }
 
     }

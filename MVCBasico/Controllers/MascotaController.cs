@@ -79,7 +79,8 @@ namespace MVCBasico.Controllers
                 return NotFound();
             }
 
-            return View(mascota);
+            TempData["Error"] = "Mascota eliminada Exitosamente.";
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Mascota/Delete/5
