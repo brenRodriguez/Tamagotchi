@@ -15,16 +15,16 @@ namespace MVCBasico.Models
 }
 static class MetodosEnum
 {
-    public static float getMaxSinAlimentar(this TipoMascota s1)
+    public static long getMaxSinAlimentar(this TipoMascota s1)
     {
         switch (s1)
         {
             case TipoMascota.Furby:
-                return 60 * 60 * 24; // 1 dia
+                return 60 * 60 * 48; // 2 dia
             case TipoMascota.Gato:
-                return 60 * 60 * 12; // 12 hs
+                return 60 * 60 * 24; // 1 dia
             case TipoMascota.Perro:
-                return 60 * 60 * 12; // 12 hs
+                return 60 * 60 * 24; // 1 dia
             default:
                 return 1000;
         }

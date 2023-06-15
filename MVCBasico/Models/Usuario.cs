@@ -13,11 +13,11 @@ namespace MVCBasico.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserID { get; set; }
 
-        [Required]
-        [StringLength(20, MinimumLength = 5)]
+        [Required (ErrorMessage = "Este campo es obligatorio")]
+        [StringLength(20, MinimumLength = 5, ErrorMessage = "El nombre de usuario debe tener mas de 5 caracteres")]
         public String NombreUsuario { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Este campo es obligatorio")]
         [StringLength(20, MinimumLength = 8)]
         public String Contrasena { get; set; }
 

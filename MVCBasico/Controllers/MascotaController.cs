@@ -100,6 +100,18 @@ namespace MVCBasico.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Profile()
+        {
+            int userId = int.Parse(User.FindFirstValue("IdUsuario"));
+            var mascotas = await _context.Mascota.Where(m => m.Usuario.UserID == userId).ToListAsync();
+
+            if (mascotas.Count == 0)
+            {
+                TempData["Error"] = "Crea tu primer mascota!";
+                return RedirectToAction(nameof(Create));
+            }
+            return View(mascotas);
+        }
 
         private bool MascotaExists(int id)
         {

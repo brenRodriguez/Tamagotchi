@@ -106,18 +106,6 @@ namespace MVCBasico.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Profile()
-        {
-            int userId = int.Parse(User.FindFirstValue("IdUsuario"));
-            var mascotas = await _context.Mascota.Where(m => m.Usuario.UserID == userId).ToListAsync();
-
-            if (mascotas == null)
-            {
-
-            }
-            return View(mascotas);
-        }
-
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync("Cookies");
