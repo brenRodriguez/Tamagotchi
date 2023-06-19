@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MVCBasico.Models.Mascota>
+﻿@model Tamagochi.ViewModels.MascotaProfileViewModel
 @{
     ViewData["Title"] = "Tus Mascotas";
 }
@@ -14,43 +14,57 @@
             @TempData["Error"]
         </div>
     }
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.NombreMascota)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TipoDeMascota)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Estado)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NombreMascota)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TipoDeMascota)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Estado)
-                    </td>
+    <div class="row">
+        <div class="col-lg-6">
+            @Html.DisplayFor(modelItem => Model.mascotaSeleccionada.NombreMascota)
+            @Html.DisplayFor(modelItem => Model.mascotaSeleccionada.TipoDeMascota)
+            @Html.DisplayFor(modelItem => Model.mascotaSeleccionada.Estado)
 
-                    <td>
-                        <a asp-controller="Mascota" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                         | 
-                        <a asp-controller="Mascota" asp-action="Alimentar" asp-route-id="@item.Id">Alimentar</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            <p>
+                <a asp-controller="Mascota" asp-action="Delete" asp-route-id="@Model.mascotaSeleccionada.Id">Delete</a>
+                |
+                <a asp-controller="Mascota" asp-action="Alimentar" asp-route-id="@Model.mascotaSeleccionada.Id">Alimentar</a>
+            </p>
+        </div>
+        <div class="col-lg-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.mascotaSeleccionada.NombreMascota)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.mascotaSeleccionada.TipoDeMascota)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.mascotaSeleccionada.Estado)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.listaMascotas)
+                    {
+
+                        <tr class="@(Model.mascotaSeleccionada.Id == item.Id ? "bg-success" : "")">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreMascota)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TipoDeMascota)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Estado)
+                            </td>
+
+                            <td>
+                                <a asp-controller="Mascota" asp-action="Profile" asp-route-id="@item.Id">Elegir</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
