@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCBasico.Context;
 using MVCBasico.Models;
+using Tamagochi.ViewModels;
 
 namespace MVCBasico.Controllers
 {
@@ -60,7 +61,7 @@ namespace MVCBasico.Controllers
             {
                 _context.Add(mascota);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Profile));
             }
             return View(mascota);
         }
@@ -107,17 +108,47 @@ namespace MVCBasico.Controllers
             TempData["Error"] = "Mascota eliminada Exitosamente.";
             return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> Profile()
+        
+        private Mascota buscarMascota(List<Mascota> mascotas, int? idMascota)
+        {
+            Mascota res = mascotas[0];
+            int contador = 1;
+            if (idMascota != null) 
+            {
+                while (res.Id != idMascota && contador<mascotas.Count)
+                {
+                    if (mascotas[contador].Id == idMascota)
+                    {
+                        res = mascotas[contador];
+                    }
+                    contador++;
+                }
+            }
+
+            return res;
+        }
+
+        // Recibe el ID de la mascota que quiere seleccionar el susario, si no seleccionó ninguna devuelve la primer mascota de la lista
+        public async Task<IActionResult> Profile(int? id)
         {
             int userId = int.Parse(User.FindFirstValue("IdUsuario"));
             var mascotas = await _context.Mascota.Where(m => m.UserID == userId).ToListAsync();
-
+            
             if (mascotas.Count == 0)
             {
                 TempData["Error"] = "Crea tu primer mascota!";
                 return RedirectToAction(nameof(Create));
             }
-            return View(mascotas);
+
+            Mascota mascotaSelected = buscarMascota(mascotas, id);
+
+            MascotaProfileViewModel vm = new MascotaProfileViewModel()
+            {
+                mascotaSeleccionada = mascotaSelected,
+                listaMascotas = mascotas
+            };
+
+            return View(vm);
         }
 
         public async Task<IActionResult> Alimentar(int id)
@@ -126,7 +157,7 @@ namespace MVCBasico.Controllers
             mascota_db.UltimaVezAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             await _context.SaveChangesAsync();
             TempData["Error"] = "ñam ñam delicius!";
-            return RedirectToAction(nameof(Profile));
+            return RedirectToAction(nameof(Profile), new {id=id});
         }
 
         private bool MascotaExists(int id)
