@@ -4,9 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Mascota</h4>
+<h1>Creá tu mascota</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,13 +17,13 @@
             }
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NombreMascota" class="control-label"></label>
+                <label asp-for="NombreMascota" class="control-label">Nombre mascota:</label>
                 <input asp-for="NombreMascota" class="form-control" />
                 <span asp-validation-for="NombreMascota" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TipoDeMascota" class="control-label"></label>
-                <select asp-for="TipoDeMascota" class="form-select form-select-lg mb-3">
+                <select asp-for="TipoDeMascota" class="form-select form-select-lg mb-3 pet-select">
                     @foreach (var option in ViewBag.TipoDeMascotaOptions)
                     {
                         <option value="@option.Value">@option.Text</option>
