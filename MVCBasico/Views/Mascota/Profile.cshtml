@@ -8,15 +8,17 @@
     <a asp-controller="Mascota" asp-action="Create">Crear nueva mascota</a>
 </p>
 <div>
-    @if (!string.IsNullOrEmpty(TempData["Error"] as string))
-    {
-        <div class="alert alert-success" role="alert">
-            @TempData["Error"]
-        </div>
-    }
     <div class="row">
         <div class="col-lg-7">
             <div class="d-flex flex-column align-items-center justify-content-center text-center pet-main-container">
+                @if (!string.IsNullOrEmpty(TempData["Error"] as string))
+                {
+                    <div class="alert alert-success custom-alert" role="alert">
+                        @TempData["Error"]
+                        <img src="/cookies.png" class="image-alert" />
+                        <img src="/stars.png" class="image-alert" />
+                    </div>
+                }
                 <div class="pet-container">
                     <h3 class="pet-name text-center">@Html.DisplayFor(modelItem => Model.mascotaSeleccionada.NombreMascota)</h3>
                     <div class="pet-img-container">
@@ -93,7 +95,7 @@
                             </td>
 
                             <td>
-                                <a asp-controller="Mascota" asp-action="Profile" asp-route-id="@item.Id">Elegir</a>
+                                <a asp-controller="Mascota" asp-action="Profile" asp-route-id="@item.Id">Seleccionar</a>
                             </td>
                         </tr>
                     }
