@@ -28,11 +28,11 @@
                         @if (!User.Identity.IsAuthenticated){
                             <div class="d-flex justify-content-end w-100">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Registrar">Registrar</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Registrar">Registrarse</a>
                             </li>
                              <li class="nav-item ">
-@*                                 <img src="~/rabbit.png" class="user-img"/>
-*@                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Login">Iniciar Sesión</a>
+                                 <img src="~/rabbit.png" class="user-img"/>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Login">Iniciar Sesión</a>
                             </li>
                     </div>
                         } else {
@@ -40,10 +40,12 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Mascota" asp-action="Profile">Tus Mascotas</a>
                     </li>
                     <div class="d-flex justify-content-end  w-100">
-                        <li class="nav-item">
+                            <li class="nav-item">
+                                <img src="~/rabbit.png" class="user-img" />
                                 <span class="nav-link text-dark">@User.Identity.Name</span>
                             </li>
                             <li class="nav-item">
+
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Logout">Cerrar Sesión</a>
                             </li>
                     </div>

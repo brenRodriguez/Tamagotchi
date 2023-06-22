@@ -5,7 +5,9 @@
 
 
 <p>
+    <button type="submit" class="btn btn-warning">
     <a asp-controller="Mascota" asp-action="Create">Crear nueva mascota</a>
+    </button>
 </p>
 <div>
     <div class="row">
@@ -56,12 +58,12 @@
                         <span>
                             Estado actual:             @Html.DisplayFor(modelItem => Model.mascotaSeleccionada.Estado)
                         </span>
-                        <button class="feed-btn"><a asp-controller="Mascota" asp-action="Alimentar" asp-route-id="@Model.mascotaSeleccionada.Id">Alimentar</a></button>
+                        <button class="feed-btn"><a asp-controller="Mascota" asp-action="Alimentar" asp-route-id="@Model.mascotaSeleccionada.Id">Alimentar</a><img class="food-icon" src="~/restaurant.png"/></button>
                     </div>
                 </div>
             </div>
             <p>
-                <button class="btn btn-danger mt-10">
+                <button class="btn btn-danger mt-4">
                     <a asp-controller="Mascota" asp-action="Delete" asp-route-id="@Model.mascotaSeleccionada.Id">Borrar a @Html.DisplayFor(modelItem => Model.mascotaSeleccionada.NombreMascota) </a>
                 </button>
 
