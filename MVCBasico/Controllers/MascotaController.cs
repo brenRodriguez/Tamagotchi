@@ -155,7 +155,7 @@ namespace MVCBasico.Controllers
         public async Task<IActionResult> Alimentar(int id)
         {
             var mascota_db = await _context.Mascota.FirstOrDefaultAsync(n => n.Id == id);
-            //PREGUNTAR SI ESTADO ES SATISFECHO ---> agregar error en un TemData("") para no grabar en la BD...
+
             if (!(mascota_db.Estado == Estado.SATISFECHO)) {
                 mascota_db.UltimaVezAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                 await _context.SaveChangesAsync();

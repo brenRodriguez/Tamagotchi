@@ -3,6 +3,7 @@ using MVCBasico.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Tamagochi.Migrations
 {
     [DbContext(typeof(TamagochiDatabaseContext))]
-    partial class TamagochiDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230622022605_MigracionEstadisticas")]
+    partial class MigracionEstadisticas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

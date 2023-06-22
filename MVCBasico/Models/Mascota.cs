@@ -13,9 +13,11 @@ namespace MVCBasico.Models
             TipoDeMascota = tipoDeMascota;
             UserID = userID;
             UltimaVezAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            TiempoDeCreacion = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             TiempoMaximoSinAlimentar = TipoDeMascota.getMaxSinAlimentar();
+            Estadisticas = new Estadistica();
+            Estadisticas.MascotaTrackeada = this;
         }
-
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -41,6 +43,12 @@ namespace MVCBasico.Models
         [Required]
         public long TiempoMaximoSinAlimentar {get; set;}
 
+        [Required]
+        public long TiempoDeCreacion { get; set; }
+
+        [Required]
+        public Estadistica Estadisticas { get; set; }
+
         // enum
         public Estado Estado {
             get
@@ -49,13 +57,18 @@ namespace MVCBasico.Models
             }
          }
 
+        public void actualizarEstado()
+        {
+            this.Estadisticas.actualizarEstadistica();
+        }
+
         private Estado calcularEstado()
         {
             long tiempoDesdeAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - this.UltimaVezAlimentado;
 
             if (tiempoDesdeAlimentado > this.TiempoMaximoSinAlimentar)
             {
-                return Estado.MUERTO;
+                return Estado.DEBIL;
             } else if (tiempoDesdeAlimentado > this.TiempoMaximoSinAlimentar / 2)
             {
                 return Estado.HAMBRIENTO;

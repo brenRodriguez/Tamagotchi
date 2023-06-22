@@ -22,5 +22,14 @@ namespace MVCBasico.Models
         public String Contrasena { get; set; }
 
         public ICollection<Mascota> Mascotas { get; set; }
+
+        public void actualizarEstadisticas()
+        {
+            foreach(Mascota mascota in this.Mascotas)
+            {
+                mascota.actualizarEstado();
+            }
+
+        }
     }
 }
