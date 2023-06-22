@@ -107,5 +107,12 @@ form {
 }
 .custom-alert{
     position: absolute;
-    top: 14px;
+    top: 14%;
+}
+.nav-item {
+    white-space: nowrap;
+}
+.user-img{
+    width: 25px;
+    height: 25px;
 }

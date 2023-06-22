@@ -18,7 +18,7 @@ namespace MVCBasico.Models
         public String NombreUsuario { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        [StringLength(20, MinimumLength = 8)]
+        [StringLength(20, MinimumLength = 8, ErrorMessage = "La contraseña debe tener minimo 8 caracteres")]
         public String Contrasena { get; set; }
 
         public ICollection<Mascota> Mascotas { get; set; }

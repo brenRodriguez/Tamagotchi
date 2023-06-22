@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCBasico.Context;
 using MVCBasico.Models;
+using Tamagochi.Models;
 using Tamagochi.ViewModels;
 
 namespace MVCBasico.Controllers
@@ -154,9 +155,16 @@ namespace MVCBasico.Controllers
         public async Task<IActionResult> Alimentar(int id)
         {
             var mascota_db = await _context.Mascota.FirstOrDefaultAsync(n => n.Id == id);
-            mascota_db.UltimaVezAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-            await _context.SaveChangesAsync();
-            TempData["Error"] = "ñam ñam delicius!";
+            //PREGUNTAR SI ESTADO ES SATISFECHO ---> agregar error en un TemData("") para no grabar en la BD...
+            if (!(mascota_db.Estado == Estado.SATISFECHO)) {
+                mascota_db.UltimaVezAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                await _context.SaveChangesAsync();
+                TempData["Alimentado"] = "ñam ñam delicius!";
+            }
+            else
+            {
+                TempData["Error"] = mascota_db.NombreMascota + " no tiene hambre!";
+            }
             return RedirectToAction(nameof(Profile), new {id=id});
         }
 

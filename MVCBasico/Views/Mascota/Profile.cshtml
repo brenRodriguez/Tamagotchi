@@ -11,38 +11,43 @@
     <div class="row">
         <div class="col-lg-7">
             <div class="d-flex flex-column align-items-center justify-content-center text-center pet-main-container">
-                @if (!string.IsNullOrEmpty(TempData["Error"] as string))
+                @if (!string.IsNullOrEmpty(TempData["Alimentado"] as string))
+                {
+                    <div class="alert alert-success custom-alert" role="alert">
+                        @TempData["Alimentado"]
+                        <img src="/cookies.png" class="image-alert" />
+                        <img src="/stars.png" class="image-alert" />
+                    </div>
+                }
+                else if (!string.IsNullOrEmpty(TempData["Error"] as string))
                 {
                     <div class="alert alert-success custom-alert" role="alert">
                         @TempData["Error"]
-                        <img src="/cookies.png" class="image-alert" />
-                        <img src="/stars.png" class="image-alert" />
                     </div>
                 }
                 <div class="pet-container">
                     <h3 class="pet-name text-center">@Html.DisplayFor(modelItem => Model.mascotaSeleccionada.NombreMascota)</h3>
                     <div class="pet-img-container">
                         @{
-                            string tipoMascota = Model.mascotaSeleccionada.TipoDeMascota.ToString();
-
-                            string clase = tipoMascota;
-                            string src;
-
-                            switch (clase)
-                            {
-                                case "Gato":
-                                    src = "/kitty.gif";
-                                    break;
-                                case "Furby":
-                                    src = "/furby3.gif";
-                                    break;
-                                case "Perro":
-                                    src = "/doggy.gif";
-                                    break;
-                                default:
-                                    src = "/furby3.gif";
-                                    break;
-                            }
+                            //string tipoMascota = Model.mascotaSeleccionada.TipoDeMascota.ToString();
+                            //string clase = tipoMascota;
+                            //string src;
+                            //switch (clase)
+                            //{
+                            //    case "Gato":
+                            //        src = "/kitty.gif";
+                            //        break;
+                            //    case "Furby":
+                            //        src = "/furby3.gif";
+                            //        break;
+                            //    case "Perro":
+                            //        src = "/doggy.gif";
+                            //        break;
+                            //    default:
+                            //        src = "/furby3.gif";
+                            //        break;
+                            //}
+                            string src = Model.mascotaSeleccionada.TipoDeMascota.getImagenMascota();
                         }
 
                         <img src="@src" alt="Descripción de la imagen" />

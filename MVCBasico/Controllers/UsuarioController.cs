@@ -64,7 +64,7 @@ namespace MVCBasico.Controllers
                 await Login(usuario.NombreUsuario, usuario.Contrasena);
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Profile", "Mascota");
         }
 
         [HttpGet]
@@ -103,7 +103,7 @@ namespace MVCBasico.Controllers
 
             await HttpContext.SignInAsync("Cookies", principal);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Profile", "Mascota");
         }
 
         public async Task<IActionResult> Logout()
