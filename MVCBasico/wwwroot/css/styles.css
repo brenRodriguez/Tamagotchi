@@ -8,7 +8,6 @@ input {
     outline: none !important;
     font-size: 1rem !important;
     text-indent: 5px !important;
-    width: 90% !important;
     height: 2rem !important;
     background-color: #ecf0f1 !important;
     -webkit-appearance: none !important;
@@ -18,19 +17,31 @@ input {
     padding: 1% !important;
 }
 
-    input:focus {
-        opacity: .6 !important;
-    }
-
 form {
-    min-width: 300px;
-    max-width: 400px;
+    min-width: 350px;
+    max-width: 500px;
+    height: 340px;
     padding: 20px;
     margin: 0 auto;
+    border-radius: 6px;
     background: #ffffff59;
     -webkit-box-shadow: 3px 3px 23px -9px rgba(0,0,0,0.86);
     -moz-box-shadow: 3px 3px 23px -9px rgba(0,0,0,0.86);
     box-shadow: 3px 3px 23px -9px rgba(0,0,0,0.86);
+}
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.control-label {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+#NombreUsuario-error, #Contrasena-error {
+    font-size: 14px;
+    font-weight: 600;
 }
 .pet-main-container {
     width: 100%;
@@ -62,9 +73,11 @@ form {
     background: transparent;
 }
 .feed-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     border-radius: 6px;
     border: none;
-    max-width: 100px;
     padding: 6px 12px;
     color: #ffffff;
     background: #fdbb2d;
@@ -80,7 +93,6 @@ form {
     border-radius: 6px !important;
     padding: 6px 12px !important;
 }
-
 
 .first-color {
     background: #93e4c1;
@@ -110,9 +122,16 @@ form {
     top: 14%;
 }
 .nav-item {
+    display: flex;
+    align-items: center;
     white-space: nowrap;
+    text-transform: capitalize;
 }
 .user-img{
-    width: 25px;
-    height: 25px;
+    width: 24px;
+    height: 24px;
+}
+.food-icon {
+    height: 20px;
+    width: 20px;
 }
