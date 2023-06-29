@@ -9,6 +9,7 @@
     <a asp-controller="Mascota" asp-action="Create">Crear nueva mascota</a>
     </button>
 </p>
+
 <div>
     <div class="row">
         <div class="col-lg-7">
@@ -29,26 +30,9 @@
                 }
                 <div class="pet-container">
                     <h3 class="pet-name text-center">@Html.DisplayFor(modelItem => Model.mascotaSeleccionada.NombreMascota)</h3>
+                    <a asp-controller="Mascota" asp-action="Renombrar" asp-route-id="@Model.mascotaSeleccionada.Id">Cambiar nombre</a>
                     <div class="pet-img-container">
-                        @{
-                            //string tipoMascota = Model.mascotaSeleccionada.TipoDeMascota.ToString();
-                            //string clase = tipoMascota;
-                            //string src;
-                            //switch (clase)
-                            //{
-                            //    case "Gato":
-                            //        src = "/kitty.gif";
-                            //        break;
-                            //    case "Furby":
-                            //        src = "/furby3.gif";
-                            //        break;
-                            //    case "Perro":
-                            //        src = "/doggy.gif";
-                            //        break;
-                            //    default:
-                            //        src = "/furby3.gif";
-                            //        break;
-                            //}
+                        @{                        
                             string src = Model.mascotaSeleccionada.TipoDeMascota.getImagenMascota();
                         }
 

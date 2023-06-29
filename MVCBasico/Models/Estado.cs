@@ -4,6 +4,6 @@
     {
         SATISFECHO,
         HAMBRIENTO,
-        MUERTO
+        DEBIL
     }
 }

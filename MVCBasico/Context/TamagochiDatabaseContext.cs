@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MVCBasico.Models;
+using Tamagochi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVCBasico.Context
+namespace Tamagochi.Context
 {
     public class TamagochiDatabaseContext : DbContext
     {
@@ -13,7 +13,9 @@ namespace MVCBasico.Context
         {
         }
         public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<MVCBasico.Models.Mascota> Mascota { get; set; }
+        public DbSet<Mascota> Mascota { get; set; }
+        public DbSet<Estadistica> Estadistica { get; set; }
+
     }
 
 }

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Tamagochi.Models.Estadistica>
+
+@{
+    ViewData["Title"] = "Tus Estadisticas";
+}
+
+<h1>Estadisticas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MascotaTrackeada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TiempoHambrento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TiempoDebil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TiempoSatisfecho)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MascotaTrackeada.NombreMascota)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TiempoHambrento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TiempoDebil)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TiempoSatisfecho)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
