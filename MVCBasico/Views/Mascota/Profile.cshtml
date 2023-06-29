@@ -58,7 +58,7 @@
                         <span>
                             Estado actual:             @Html.DisplayFor(modelItem => Model.mascotaSeleccionada.Estado)
                         </span>
-                        <button class="feed-btn"><a asp-controller="Mascota" asp-action="Alimentar" asp-route-id="@Model.mascotaSeleccionada.Id">Alimentar</a><img class="food-icon" src="~/restaurant.png"/></button>
+                        <button class="btn btn-warning feed-btn"><a asp-controller="Mascota" asp-action="Alimentar" asp-route-id="@Model.mascotaSeleccionada.Id">Alimentar</a><img class="food-icon" src="~/restaurant.png"/></button>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,8 @@
             </p>
         </div>
         <div class="col-lg-5">
-            <table class="table">
+
+            @*<table class="table">
                 <thead>
                     <tr>
                         <th>
@@ -105,6 +106,29 @@
                                 <a asp-controller="Mascota" asp-action="Profile" asp-route-id="@item.Id">Seleccionar</a>
                             </td>
                         </tr>
+                    }
+                </tbody>
+            </table>*@
+        
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th> @Html.DisplayNameFor(model => model.mascotaSeleccionada.NombreMascota)</th>
+            <th> @Html.DisplayNameFor(model => model.mascotaSeleccionada.TipoDeMascota)</th>
+            <th>@Html.DisplayNameFor(model => model.mascotaSeleccionada.Estado)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.listaMascotas)
+                    {
+                    <tr class="@(Model.mascotaSeleccionada.Id == item.Id ? "selected" : "")">
+                    <td><span> @Html.DisplayFor(modelItem => item.NombreMascota)</span></td>
+                    <td><span> @Html.DisplayFor(modelItem => item.TipoDeMascota)</span></td>
+                    <td><span>@Html.DisplayFor(modelItem => item.Estado)</span></td>
+                    <td><span> <a asp-controller="Mascota" asp-action="Profile" asp-route-id="@item.Id">Seleccionar</a></span></td>
+                            </tr>
                     }
                 </tbody>
             </table>
