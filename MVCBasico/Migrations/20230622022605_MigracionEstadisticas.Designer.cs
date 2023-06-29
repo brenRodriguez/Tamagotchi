@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Tamagochi.Migrations
 {
     [DbContext(typeof(TamagochiDatabaseContext))]
-    [Migration("20230612052530_Tamagochi.Context.TamagochiDatabaseContext")]
-    partial class TamagochiContextTamagochiDatabaseContext
+    [Migration("20230622022605_MigracionEstadisticas")]
+    partial class MigracionEstadisticas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,14 +36,17 @@ namespace Tamagochi.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("TiempoMaximoSinAlimentar")
-                        .HasColumnType("int");
+                    b.Property<long>("TiempoDeCreacion")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TiempoMaximoSinAlimentar")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("TipoDeMascota")
                         .HasColumnType("int");
 
-                    b.Property<int>("UltimaVezAlimentado")
-                        .HasColumnType("int");
+                    b.Property<long>("UltimaVezAlimentado")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
@@ -68,15 +71,45 @@ namespace Tamagochi.Migrations
 
                     b.Property<string>("Contrasena")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("NombreUsuario")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("UserID");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Tamagochi.Models.Estadistica", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("MascotaId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("TiempoDebil")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TiempoHambrento")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UltimaActualizacion")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MascotaId")
+                        .IsUnique();
+
+                    b.ToTable("Estadistica");
                 });
 
             modelBuilder.Entity("Tamagochi.Models.Mascota", b =>
@@ -88,6 +121,23 @@ namespace Tamagochi.Migrations
                         .IsRequired();
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Tamagochi.Models.Estadistica", b =>
+                {
+                    b.HasOne("Tamagochi.Models.Mascota", "MascotaTrackeada")
+                        .WithOne("Estadisticas")
+                        .HasForeignKey("Tamagochi.Models.Estadistica", "MascotaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MascotaTrackeada");
+                });
+
+            modelBuilder.Entity("Tamagochi.Models.Mascota", b =>
+                {
+                    b.Navigation("Estadisticas")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tamagochi.Models.Usuario", b =>

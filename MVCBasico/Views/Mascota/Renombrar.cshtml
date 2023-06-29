@@ -1,14 +1,15 @@
 ﻿@model Tamagochi.Models.Mascota
 
+
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Renombrar";
 }
 
-<h1>Creá tu mascota</h1>
+<h1>Cambiale el nombre a @Html.DisplayNameFor(model => model.NombreMascota)!</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Renombrar" asp-route-id="@Model.Id">
             @if (!string.IsNullOrEmpty(TempData["Error"] as string))
             {
                 <div class="alert alert-success" role="alert">
@@ -22,16 +23,6 @@
                 <span asp-validation-for="NombreMascota" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TipoDeMascota" class="control-label"></label>
-                <select asp-for="TipoDeMascota" class="form-select form-select-lg mb-3 pet-select">
-                    @foreach (var option in ViewBag.TipoDeMascotaOptions)
-                    {
-                        <option value="@option.Value">@option.Text</option>
-                    }
-                </select>
-                <span asp-validation-for="TipoDeMascota" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -43,5 +34,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

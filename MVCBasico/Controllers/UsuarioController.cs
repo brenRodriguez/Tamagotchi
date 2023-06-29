@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MVCBasico.Context;
-using MVCBasico.Models;
+using Tamagochi.Context;
+using Tamagochi.Models;
 using NuGet.Protocol.Core.Types;
 
-namespace MVCBasico.Controllers
+namespace Tamagochi.Controllers
 {
     public class UsuarioController : Controller
     {
@@ -34,10 +34,8 @@ namespace MVCBasico.Controllers
         {
             return View();
         }
-
-        // POST: Usuario/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
+        // REGISTRA UN NUEVO USUARIO SI EL NOMBRE NO ESTA EN USO
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registrar([Bind("UserID,NombreUsuario,Contrasena")] Usuario usuario)
@@ -73,12 +71,15 @@ namespace MVCBasico.Controllers
             return View();
         }
 
+        //  context.Basket.Include(b => b.BasketItems).ThenInclude(bi => bi.Product).FirstOrDefault().Product
+
+
+        // INICIA SESION DE USUARIO EXISTENTE, VALIDA CONTRASEÑA Y NOMBRE DE USUARIO
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(String NombreUsuario, String Contrasena)
         {
-            var usuario_db = await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.NombreUsuario == NombreUsuario);
+            var usuario_db = await _context.Usuarios.Include(m=> m.Mascotas).FirstOrDefaultAsync(u => u.NombreUsuario == NombreUsuario);
 
             if (usuario_db == null)
             {
@@ -102,9 +103,13 @@ namespace MVCBasico.Controllers
             var principal = new ClaimsPrincipal(identity);
 
             await HttpContext.SignInAsync("Cookies", principal);
+            
+            usuario_db.actualizarEstadisticas();
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Profile", "Mascota");
         }
+
 
         public async Task<IActionResult> Logout()
         {

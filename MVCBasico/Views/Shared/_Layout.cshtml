@@ -36,19 +36,21 @@
                             </li>
                     </div>
                         } else {
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Mascota" asp-action="Profile">Tus Mascotas</a>
-                    </li>
-                    <div class="d-flex justify-content-end  w-100">
                             <li class="nav-item">
-                                <img src="~/rabbit.png" class="user-img" />
-                                <span class="nav-link text-dark">@User.Identity.Name</span>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Mascota" asp-action="Profile">Tus Mascotas</a>
                             </li>
                             <li class="nav-item">
-
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Logout">Cerrar Sesión</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Estadistica" asp-action="Estadisticas">Tus Estadisticas</a>
                             </li>
-                    </div>
+                            <div class="d-flex justify-content-end  w-100">
+                              <li class="nav-item">
+                                  <img src="~/rabbit.png" class="user-img" />
+                                  <span class="nav-link text-dark">@User.Identity.Name</span>
+                              </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Logout">Cerrar Sesión</a>
+                                </li>
+                            </div>
                         }
                     </ul>
                 </div>

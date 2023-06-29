@@ -1,6 +1,6 @@
 using System;
 
-namespace MVCBasico.Models
+namespace Tamagochi.Models
 {
     public class ErrorViewModel
     {
