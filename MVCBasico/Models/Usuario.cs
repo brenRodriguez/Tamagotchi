@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVCBasico.Models
+namespace Tamagochi.Models
 {
     public class Usuario
     {
@@ -25,11 +25,13 @@ namespace MVCBasico.Models
 
         public void actualizarEstadisticas()
         {
-            foreach(Mascota mascota in this.Mascotas)
+            if (Mascotas != null && Mascotas.Count != 0)
             {
-                mascota.actualizarEstado();
+                foreach(Mascota mascota in Mascotas)
+                {
+                    mascota.actualizarEstado();
+                }
             }
-
         }
     }
 }

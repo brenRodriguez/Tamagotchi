@@ -1,10 +1,10 @@
-﻿using MVCBasico.Models;
+﻿using Tamagochi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVCBasico.Models
+namespace Tamagochi.Models
 {
     public enum TipoMascota
     {

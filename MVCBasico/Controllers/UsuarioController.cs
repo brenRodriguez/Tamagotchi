@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MVCBasico.Context;
-using MVCBasico.Models;
+using Tamagochi.Context;
+using Tamagochi.Models;
 using NuGet.Protocol.Core.Types;
 
-namespace MVCBasico.Controllers
+namespace Tamagochi.Controllers
 {
     public class UsuarioController : Controller
     {
@@ -71,13 +71,15 @@ namespace MVCBasico.Controllers
             return View();
         }
 
+        //  context.Basket.Include(b => b.BasketItems).ThenInclude(bi => bi.Product).FirstOrDefault().Product
+
+
         // INICIA SESION DE USUARIO EXISTENTE, VALIDA CONTRASEÑA Y NOMBRE DE USUARIO
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(String NombreUsuario, String Contrasena)
         {
-            var usuario_db = await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.NombreUsuario == NombreUsuario);
+            var usuario_db = await _context.Usuarios.Include(m=> m.Mascotas).FirstOrDefaultAsync(u => u.NombreUsuario == NombreUsuario);
 
             if (usuario_db == null)
             {

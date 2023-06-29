@@ -1,4 +1,4 @@
-﻿using MVCBasico.Models;
+﻿using Tamagochi.Models;
 using System.Collections.Generic;
 
 namespace Tamagochi.ViewModels

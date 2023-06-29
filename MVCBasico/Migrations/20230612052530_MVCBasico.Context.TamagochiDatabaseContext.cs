@@ -4,7 +4,7 @@
 
 namespace Tamagochi.Migrations
 {
-    public partial class MVCBasicoContextTamagochiDatabaseContext : Migration
+    public partial class TamagochiContextTamagochiDatabaseContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

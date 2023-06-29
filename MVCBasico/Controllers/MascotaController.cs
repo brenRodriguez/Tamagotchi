@@ -7,12 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MVCBasico.Context;
-using MVCBasico.Models;
+using Tamagochi.Context;
 using Tamagochi.Models;
 using Tamagochi.ViewModels;
 
-namespace MVCBasico.Controllers
+namespace Tamagochi.Controllers
 {
     public class MascotaController : Controller
     {
@@ -76,6 +75,7 @@ namespace MVCBasico.Controllers
 
             var mascota = await _context.Mascota
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (mascota == null)
             {
                 TempData["Error"] = "Ocurrio un Error al eliminar tu Mascota";
@@ -167,6 +167,32 @@ namespace MVCBasico.Controllers
             }
             return RedirectToAction(nameof(Profile), new {id=id});
         }
+
+        //public int TraerEdad()          //Método TraerEdad
+        //{
+        //    int iAnios;
+        //    iAnios = DateTime.Today.AddTicks(-_fechaNacimiento.Ticks).Year - 1;
+        //    return iAnios;
+        //}
+        [HttpGet]
+        public async Task<IActionResult> Renombrar(int id)
+        {
+            var mascota = await _context.Mascota.FirstOrDefaultAsync(m => m.Id == id);
+
+            return View(mascota);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Renombrar(String nombreMascota, int id)
+        {
+            var mascota = await _context.Mascota.FirstOrDefaultAsync(m => m.Id == id);
+            mascota.NombreMascota = nombreMascota;
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToAction(nameof(Profile), new { id = id });
+        }
+
+
 
         private bool MascotaExists(int id)
         {

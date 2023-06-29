@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MVCBasico.Context;
-using MVCBasico.Models;
+using Tamagochi.Context;
+using Tamagochi.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Tamagochi.Models;
 
 namespace Tamagochi.Controllers
 {
@@ -31,8 +30,6 @@ namespace Tamagochi.Controllers
                 return RedirectToAction("Profile", "Mascota");
             }
 
-            user.actualizarEstadisticas();
-            await _context.SaveChangesAsync();
 
             var mascotas = await _context.Mascota.Where(m => m.UserID == idUsuario).ToListAsync();
             List<Estadistica> estadisticas = new List<Estadistica>();

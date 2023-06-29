@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using MVCBasico.Models;
+using Tamagochi.Models;
 using System;
 
 namespace Tamagochi.Models
@@ -45,10 +45,11 @@ namespace Tamagochi.Models
         {
             long tiempoDesdeAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - MascotaTrackeada.UltimaVezAlimentado;
 
-            if (tiempoDesdeAlimentado > this.MascotaTrackeada.UltimaVezAlimentado)
+            if (tiempoDesdeAlimentado > this.MascotaTrackeada.TiempoMaximoSinAlimentar )
             {
-                TiempoDebil += tiempoDesdeAlimentado - (MascotaTrackeada.TiempoMaximoSinAlimentar / 2);
+                TiempoDebil += tiempoDesdeAlimentado - (MascotaTrackeada.TiempoMaximoSinAlimentar);
                 TiempoHambrento += MascotaTrackeada.TiempoMaximoSinAlimentar / 2;
+
             } else if (tiempoDesdeAlimentado > MascotaTrackeada.TiempoMaximoSinAlimentar / 2)
             {
                 TiempoHambrento += tiempoDesdeAlimentado;

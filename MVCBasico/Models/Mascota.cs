@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System;
 using Tamagochi.Models;
 
-namespace MVCBasico.Models
+namespace Tamagochi.Models
 {
     public class Mascota
     {
