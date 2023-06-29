@@ -76,7 +76,6 @@ namespace Tamagochi.Models
             {
                 return Estado.SATISFECHO;
             }
- 
         }
 
     }
