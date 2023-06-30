@@ -4,11 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Lista de Mascotas</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <div>
     @if (!string.IsNullOrEmpty(TempData["Error"] as string))
     {
@@ -23,11 +20,11 @@
                     @Html.DisplayNameFor(model => model.NombreMascota)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UltimaVezAlimentado)
+                    Última Vez Alimentado
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TiempoMaximoSinAlimentar)
-                </th>
+                    Tiempo Máximo Sin Alimentar
+                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.TipoDeMascota)
                 </th>
@@ -48,10 +45,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TipoDeMascota)
-                </td>
-
-                <td>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

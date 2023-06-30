@@ -53,9 +53,7 @@ form {
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    width: 450px;
-    height:600px;
-    padding:16px;
+    padding:24px;
     border-radius: 6px;
     background: rgb(34,193,195);
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
@@ -64,7 +62,6 @@ form {
     color: white;
     font-weight: 700;
 }
-
 .pet-img-container img {
     height: 300px;
     width: 250px;
@@ -141,7 +138,7 @@ form {
     width: 20px;
 }
 
-.table {
+.profile-table {
     border-collapse: separate;
     border-spacing: 0;
     text-align: left;
@@ -149,19 +146,19 @@ form {
     border: 1px solid black !important;
     border-radius: 8px !important;
 }
-.table tr {
+.profile-table tr {
     border: none !important;
 }
-.table tr:hover {
+.profile-table tr:hover {
     cursor: pointer;
     border: none !important;
 }
-.table th, table td {
+.profile-table th, table td {
     padding: 10px 20px;
     border: none !important;
 }
 
-.table td span {
+.profile-table td span {
     color: dimgrey;
     font-size: 14px;
     font-weight: bold;
@@ -171,19 +168,19 @@ form {
     background-color: #93e4c1;
     color: #ffffff;
 }
-.table tr:hover td, tr:hover th {
+.profile-table tr:hover td, tr:hover th {
     background-color: #93e4c1;
     opacity: 0.5;
     color: #ffffff;
 }
-.table > thead tr:hover td, tr:hover th {
+.profile-table > thead tr:hover td, tr:hover th {
     background: inherit;
     opacity: 1;
     color: black;
 }
-.table td:first-child {
+.profile-table td:first-child {
     border-radius: 10px 0 0 10px;
 }
-.table td:last-child {
+.profile-table td:last-child {
     border-radius: 0 10px 10px 0;
 }
