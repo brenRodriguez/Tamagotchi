@@ -52,7 +52,7 @@ namespace Tamagochi.Models
 
             } else if (tiempoDesdeAlimentado > MascotaTrackeada.TiempoMaximoSinAlimentar / 2)
             {
-                TiempoHambrento += tiempoDesdeAlimentado;
+                TiempoHambrento += tiempoDesdeAlimentado - MascotaTrackeada.TiempoMaximoSinAlimentar / 2;
             }
         }
 
