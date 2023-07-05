@@ -2,9 +2,17 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="d-flex flex-column align-items-center justify-content-center text-center pet-main-container">
-    <div class="pet-container">
-        <h2> ¡Bienvenidx a Tamagotchi App!</h2>
+<div class="container">
+<div class="row d-flex flex-column align-items-center justify-content-center text-center pet-main-container">
+        <div class="pet-container pet-container-home col-lg-12  col-md-12">
+            <div class="titles">
+                    <h1>¡Bienvenidx a Tamagotchi App!</h1>
+                    <h2>Crea tu mascota y empezá a  alimentarla</h2>
+                    <button class="btn btn-warning home-btn mt-4">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Registrar">Registrarse</a>
+                    </button>
+            </div>
         <img src="~/home_image.gif"/>
     </div>
+</div>
 </div>
