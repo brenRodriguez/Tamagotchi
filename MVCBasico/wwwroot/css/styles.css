@@ -201,3 +201,45 @@ form {
 .profile-table td:last-child {
     border-radius: 0 10px 10px 0;
 }
+
+/*
+    estilos tabla de estadisticas::
+
+*/
+.referencia {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    justify-content: flex-end;
+}
+.table-wrap {
+    overflow-x: auto;
+}
+.estadisticas-table, .estadisticas-table td, .estadisticas-table th {
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+.estadisticas-table th {
+    background: #000000d6;
+    color: #fff;
+    padding: 10px 20px;
+}
+.estadisticas-table {
+    padding: 15px;
+    white-space: nowrap;
+    border-collapse: collapse;
+    width: 100%;
+}
+.estadisticas-table tbody tr:nth-child(odd) {
+    background: #fff8b5;
+    color: #000;
+    font-weight: 500;
+}
+.est-img-container img {
+    height:100px;
+    width: 100px;
+}

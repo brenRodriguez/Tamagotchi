@@ -3,10 +3,18 @@
 @{
     ViewData["Title"] = "Tus Estadisticas";
 }
-
-<h1>Estadísticas</h1>
-
-<table class="table">
+    <h1>Estadísticas</h1>
+<div class="table-wrap">
+    <div class="referencia">
+        <span>Dd: días</span>
+        <span> HH: horas</span>
+        <span> MM: minutos</span>
+        <span> SS: segundos</span>
+        <div class="est-img-container">
+            <img src="~/juego.png" />
+        </div>
+    </div>
+<table class="estadisticas-table">
     <thead>
         <tr>
             <th>
@@ -21,7 +29,6 @@
             <th>
                 Tiempo Satisfecho
             </th>
-            <th></th>
         </tr>
     </thead>
 
@@ -40,15 +47,16 @@
                 </td>
                 <td>
 
-                    <strong>@res_hambriento[0]</strong> dias <strong>@res_hambriento[1]</strong> Horas <strong>@res_hambriento[2]</strong> minutos <strong>@res_hambriento[3]</strong> Segundos
+                        <strong>@res_hambriento[0]</strong> dd <strong>@res_hambriento[1]</strong> HH <strong>@res_hambriento[2]</strong> MM <strong>@res_hambriento[3]</strong> SS
                 </td>
                 <td>
-                    <strong>@res_debil[0]</strong> dias <strong>@res_debil[1]</strong> Horas <strong>@res_debil[2]</strong> minutos <strong>@res_debil[3]</strong> Segundos
+                        <strong>@res_debil[0]</strong> dd <strong>@res_debil[1]</strong> HH <strong>@res_debil[2]</strong> MM <strong>@res_debil[3]</strong> SS
                 </td>
                 <td>
-                    <strong>@res_satisfecho[0]</strong> dias <strong>@res_satisfecho[1]</strong> Horas <strong>@res_satisfecho[2]</strong> minutos <strong>@res_satisfecho[3]</strong> Segundos
+                        <strong>@res_satisfecho[0]</strong> dd <strong>@res_satisfecho[1]</strong> HH <strong>@res_satisfecho[2]</strong> MM <strong>@res_satisfecho[3]</strong> SS
                 </td>
             </tr>
         }
     </tbody>
 </table>
+</di>
