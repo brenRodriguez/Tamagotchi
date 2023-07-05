@@ -43,6 +43,12 @@ namespace Tamagochi.Models
         public void actualizarEstadistica()
         {
             long tiempoDesdeAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - MascotaTrackeada.UltimaVezAlimentado;
+            long tiempoDesdeActualizacion = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - UltimaActualizacion;
+
+            if (tiempoDesdeAlimentado > tiempoDesdeActualizacion)
+            {
+                tiempoDesdeAlimentado -= tiempoDesdeActualizacion;
+            }
 
             if (tiempoDesdeAlimentado > this.MascotaTrackeada.TiempoMaximoSinAlimentar )
             {
@@ -53,6 +59,8 @@ namespace Tamagochi.Models
             {
                 TiempoHambrento += tiempoDesdeAlimentado - MascotaTrackeada.TiempoMaximoSinAlimentar / 2;
             }
+
+            UltimaActualizacion = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         }
 
         private long getTiempoSatisfecho()
@@ -64,16 +72,16 @@ namespace Tamagochi.Models
         
         public double[] secsToTiempo(float secs)
         {
-            int day = 60 * 60 * 24;
-            int hour = 60 * 60;
-            int minute = 60;
+            int dia = 60 * 60 * 24;
+            int hora = 60 * 60;
+            int minuto = 60;
 
-            var daysout = Math.Floor(secs / day);
-            var hoursout = Math.Floor((secs - daysout * day) / hour);
-            var minutesout = Math.Floor((secs - daysout * day - hoursout * hour) / minute);
-            var secondsout = secs - daysout * day - hoursout * hour - minutesout * minute;
+            var diaOut = Math.Floor(secs / dia);
+            var horaOut = Math.Floor((secs - diaOut * dia) / hora);
+            var minutoOut = Math.Floor((secs - diaOut * dia - horaOut * hora) / minuto);
+            var segundoOut = secs - diaOut * dia - horaOut * hora - minutoOut * minuto;
 
-            double[] result = { daysout, hoursout, minutesout, secondsout };
+            double[] result = { diaOut, horaOut, minutoOut, segundoOut };
 
             return  result;
         }

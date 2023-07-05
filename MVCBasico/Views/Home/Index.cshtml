@@ -8,9 +8,15 @@
             <div class="titles">
                     <h1>¡Bienvenidx a Tamagotchi App!</h1>
                     <h2>Crea tu mascota y empezá a  alimentarla</h2>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
                     <button class="btn btn-warning home-btn mt-4">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Registrar">Registrarse</a>
                     </button>
+                    <button class="btn btn-warning home-btn mt-4">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Login">Iniciar Sesión</a>
+                    </button>
+                    }
             </div>
         <img src="~/home_image.gif"/>
     </div>
