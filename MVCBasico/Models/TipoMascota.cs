@@ -24,7 +24,8 @@ static class MetodosEnum
             case TipoMascota.Gato:
                 return 60 * 60 * 24; // 1 dia
             case TipoMascota.Perro:
-                return 60 * 60 * 24; // 1 dia
+                return 1000;
+                //return 60 * 60 * 24; // 1 dia
             default:
                 return 1000;
         }

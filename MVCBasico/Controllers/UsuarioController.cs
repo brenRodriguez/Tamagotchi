@@ -114,7 +114,7 @@ namespace Tamagochi.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync("Cookies");
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         private bool UsuarioExists(String username)

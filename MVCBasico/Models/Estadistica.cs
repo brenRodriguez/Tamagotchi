@@ -40,7 +40,6 @@ namespace Tamagochi.Models
             }
         }
 
-
         public void actualizarEstadistica()
         {
             long tiempoDesdeAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - MascotaTrackeada.UltimaVezAlimentado;
@@ -61,7 +60,20 @@ namespace Tamagochi.Models
             // Tiempo actual - tiempo de creacion (tiempo de vida) - (tiempo que estuvo debil + tiempo que estuvo hambriento)
             return DateTimeOffset.UtcNow.ToUnixTimeSeconds() - (MascotaTrackeada.TiempoDeCreacion - (TiempoDebil + TiempoHambrento));
         }
-    }
 
-  
+        
+        public String secsToTiempo(float secs)
+        {
+            int day = 60 * 60 * 24;
+            int hour = 60 * 60;
+            int minute = 60;
+
+            var daysout = Math.Floor(secs / day);
+            var hoursout = Math.Floor((secs - daysout * day) / hour);
+            var minutesout = Math.Floor((secs - daysout * day - hoursout * hour) / minute);
+            var secondsout = secs - daysout * day - hoursout * hour - minutesout * minute;
+
+            return daysout.ToString() + "Dias " + hoursout.ToString() + "Hs " + minutesout.ToString() + "Minutos " + secondsout.ToString() + "Segundos";
+        }
+    }
 }

@@ -27,19 +27,20 @@
 
     <tbody>
         @foreach (var item in Model)
+
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.MascotaTrackeada.NombreMascota)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TiempoHambrento)
+                    @item.secsToTiempo(item.TiempoHambrento)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TiempoDebil)
+                    @item.secsToTiempo(item.TiempoDebil)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TiempoSatisfecho)
+                    @item.secsToTiempo(item.TiempoSatisfecho)
                 </td>
             </tr>
         }
