@@ -29,18 +29,24 @@
         @foreach (var item in Model)
 
         {
+
+                double[] res_hambriento = item.secsToTiempo(item.TiempoHambrento);
+                double[] res_debil = item.secsToTiempo(item.TiempoDebil);
+                double[] res_satisfecho = item.secsToTiempo(item.TiempoSatisfecho);
+              
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.MascotaTrackeada.NombreMascota)
                 </td>
                 <td>
-                    @item.secsToTiempo(item.TiempoHambrento)
+
+                    <strong>@res_hambriento[0]</strong> dias <strong>@res_hambriento[1]</strong> Horas <strong>@res_hambriento[2]</strong> minutos <strong>@res_hambriento[3]</strong> Segundos
                 </td>
                 <td>
-                    @item.secsToTiempo(item.TiempoDebil)
+                    <strong>@res_debil[0]</strong> dias <strong>@res_debil[1]</strong> Horas <strong>@res_debil[2]</strong> minutos <strong>@res_debil[3]</strong> Segundos
                 </td>
                 <td>
-                    @item.secsToTiempo(item.TiempoSatisfecho)
+                    <strong>@res_satisfecho[0]</strong> dias <strong>@res_satisfecho[1]</strong> Horas <strong>@res_satisfecho[2]</strong> minutos <strong>@res_satisfecho[3]</strong> Segundos
                 </td>
             </tr>
         }

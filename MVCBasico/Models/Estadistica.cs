@@ -62,7 +62,7 @@ namespace Tamagochi.Models
         }
 
         
-        public String secsToTiempo(float secs)
+        public double[] secsToTiempo(float secs)
         {
             int day = 60 * 60 * 24;
             int hour = 60 * 60;
@@ -73,7 +73,9 @@ namespace Tamagochi.Models
             var minutesout = Math.Floor((secs - daysout * day - hoursout * hour) / minute);
             var secondsout = secs - daysout * day - hoursout * hour - minutesout * minute;
 
-            return daysout.ToString() + "Dias " + hoursout.ToString() + "Hs " + minutesout.ToString() + "Minutos " + secondsout.ToString() + "Segundos";
+            double[] result = { daysout, hoursout, minutesout, secondsout };
+
+            return  result;
         }
     }
 }
