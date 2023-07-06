@@ -42,14 +42,18 @@ namespace Tamagochi.Models
 
         public void actualizarEstadistica()
         {
-            long tiempoDesdeAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - MascotaTrackeada.UltimaVezAlimentado;
-            long tiempoDesdeActualizacion = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - UltimaActualizacion;
 
+            long tiempoActual = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            long tiempoDesdeAlimentado = tiempoActual - MascotaTrackeada.UltimaVezAlimentado;
+            long tiempoDesdeActualizacion = tiempoActual - UltimaActualizacion;
+
+            // Resto el tiempo desde la ultima actualizacion para que no se cuenten segundos mas de una vez
             if (tiempoDesdeAlimentado > tiempoDesdeActualizacion)
             {
                 tiempoDesdeAlimentado -= tiempoDesdeActualizacion;
             }
 
+            // el tiempo que no se agrega a ninguna variable es por defecto tiempo satisfecho
             if (tiempoDesdeAlimentado > this.MascotaTrackeada.TiempoMaximoSinAlimentar )
             {
                 TiempoDebil += tiempoDesdeAlimentado - (MascotaTrackeada.TiempoMaximoSinAlimentar);
@@ -60,7 +64,7 @@ namespace Tamagochi.Models
                 TiempoHambrento += tiempoDesdeAlimentado - MascotaTrackeada.TiempoMaximoSinAlimentar / 2;
             }
 
-            UltimaActualizacion = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            UltimaActualizacion = tiempoActual;
         }
 
         private long getTiempoSatisfecho()
@@ -76,10 +80,17 @@ namespace Tamagochi.Models
             int hora = 60 * 60;
             int minuto = 60;
 
-            var diaOut = Math.Floor(secs / dia);
-            var horaOut = Math.Floor((secs - diaOut * dia) / hora);
-            var minutoOut = Math.Floor((secs - diaOut * dia - horaOut * hora) / minuto);
-            var segundoOut = secs - diaOut * dia - horaOut * hora - minutoOut * minuto;
+            // divido la cantidad de segundos totales por la cantidad de segundos en un dia y le remuevo el decimal
+            var diaOut = Math.Floor(secs / dia); 
+
+            // segundos totales - (cantidad de dias * segundos en un dia) y le remuevo el decimal
+            var horaOut = Math.Floor((secs - diaOut * dia) / hora); 
+
+            // segundos totales - (cantidad de dias * segundos en un dia) - (cant horas * segundos en una hora)
+            var minutoOut = Math.Floor((secs - diaOut * dia - horaOut * hora) / minuto); 
+
+            // segundos totales - (cantidad de dias * segundos en un dia) - (cant horas * segundos en una hora) - (cant minutos * segs en un minuto)
+            var segundoOut = secs - diaOut * dia - horaOut * hora - minutoOut * minuto; 
 
             double[] result = { diaOut, horaOut, minutoOut, segundoOut };
 

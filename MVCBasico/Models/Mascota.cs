@@ -9,11 +9,13 @@ namespace Tamagochi.Models
     {
         public Mascota(string nombreMascota, TipoMascota tipoDeMascota, int userID)
         {
+
+            long tiempoActual = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             NombreMascota = nombreMascota;
             TipoDeMascota = tipoDeMascota;
             UserID = userID;
-            UltimaVezAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-            TiempoDeCreacion = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            UltimaVezAlimentado = tiempoActual;
+            TiempoDeCreacion = tiempoActual;
             TiempoMaximoSinAlimentar = TipoDeMascota.getMaxSinAlimentar();
             Estadisticas = new Estadistica();
             Estadisticas.MascotaTrackeada = this;
@@ -66,9 +68,11 @@ namespace Tamagochi.Models
         {
             long tiempoDesdeAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - this.UltimaVezAlimentado;
 
+            // si supera el tiempo max que aguanta la mascota sin alimentar esta está debil
             if (tiempoDesdeAlimentado > this.TiempoMaximoSinAlimentar)
             {
                 return Estado.DEBIL;
+            // en cambio, si el tiempo desde alimentado es menor que el maximo pero mayor que la mitad de este, la mascota esta hambrienta
             } else if (tiempoDesdeAlimentado > this.TiempoMaximoSinAlimentar / 2)
             {
                 return Estado.HAMBRIENTO;
