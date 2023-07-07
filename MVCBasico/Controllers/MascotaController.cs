@@ -31,6 +31,7 @@ namespace Tamagochi.Controllers
         // GET: Mascota/Create
         public IActionResult Create()
         {
+            // cionsigo los distintos tipos de mascotas posibles y las guardo en una lista
             ViewBag.TipoDeMascotaOptions = Enum.GetValues(typeof(TipoMascota))
             .Cast<TipoMascota>()
             .Select(e => new SelectListItem

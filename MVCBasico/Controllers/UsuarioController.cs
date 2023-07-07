@@ -79,7 +79,7 @@ namespace Tamagochi.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(String NombreUsuario, String Contrasena)
         {
-            var usuario_db = await _context.Usuarios.Include(m=> m.Mascotas).FirstOrDefaultAsync(u => u.NombreUsuario == NombreUsuario);
+            var usuario_db = await _context.Usuarios.Include(m=> m.Mascotas).FirstAsync(u => u.NombreUsuario == NombreUsuario);
 
             if (usuario_db == null)
             {
@@ -115,11 +115,6 @@ namespace Tamagochi.Controllers
         {
             await HttpContext.SignOutAsync("Cookies");
             return RedirectToAction("Index", "Home");
-        }
-
-        private bool UsuarioExists(String username)
-        {
-          return _context.Usuarios.Any(e => e.NombreUsuario == username);
         }
     }
 }
