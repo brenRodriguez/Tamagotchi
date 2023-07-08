@@ -48,7 +48,7 @@ form {
     padding: 36px;
     border-radius: 8px;
 }
-.pet-main-container img {
+.tamagochi-home {
     width: 100%;
 }
 .titles {
@@ -224,8 +224,8 @@ form {
     text-transform: capitalize;
 }
 .estadisticas-table th {
-    background: #000000d6;
-    color: #fff;
+    background: #000000d6 !important;
+    color: #ffffff !important;
     padding: 10px 20px;
 }
 .estadisticas-table {
