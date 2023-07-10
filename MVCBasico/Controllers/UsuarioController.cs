@@ -81,15 +81,9 @@ namespace Tamagochi.Controllers
         {
             var usuario_db = await _context.Usuarios.Include(m=> m.Mascotas).FirstAsync(u => u.NombreUsuario == NombreUsuario);
 
-            if (usuario_db == null)
+            if (usuario_db == null || !usuario_db.Contrasena.Equals(Contrasena))
             {
-                TempData["Error"] = "El nombre de usuario no existe.";
-                return RedirectToAction(nameof(Login));
-            }
-
-            if (!usuario_db.Contrasena.Equals(Contrasena))
-            {
-                TempData["Error"] = "La contraseña es incorrecta.";
+                TempData["Error"] = "El nombre de usuario o la contraseña son incorrectos";
                 return RedirectToAction(nameof(Login));
             }
 

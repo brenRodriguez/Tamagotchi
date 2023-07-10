@@ -27,13 +27,13 @@
                         </li>                        
                         @if (!User.Identity.IsAuthenticated){
                             <div class="d-flex justify-content-end w-100">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Registrar">Registrarse</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Login">Iniciar Sesión</a>
-                            </li>
-                    </div>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Registrar">Registrarse</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Login">Iniciar Sesión</a>
+                                </li>
+                            </div>
                         } else {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Mascota" asp-action="Profile">Tus Mascotas</a>

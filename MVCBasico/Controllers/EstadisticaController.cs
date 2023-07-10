@@ -30,7 +30,6 @@ namespace Tamagochi.Controllers
                 return RedirectToAction("Profile", "Mascota");
             }
 
-
             var mascotas = await _context.Mascota.Where(m => m.UserID == idUsuario).ToListAsync();
             List<Estadistica> estadisticas = new List<Estadistica>();
 

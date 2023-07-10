@@ -65,7 +65,7 @@ namespace Tamagochi.Models
         }
 
         private Estado calcularEstado()
-        {
+        {           
             long tiempoDesdeAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - this.UltimaVezAlimentado;
 
             // si supera el tiempo max que aguanta la mascota sin alimentar esta está debil
@@ -81,6 +81,5 @@ namespace Tamagochi.Models
                 return Estado.SATISFECHO;
             }
         }
-
     }
 }

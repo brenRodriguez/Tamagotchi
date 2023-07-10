@@ -42,11 +42,10 @@ namespace Tamagochi.Models
 
         public void actualizarEstadistica()
         {
-
             long tiempoActual = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             long tiempoDesdeAlimentado = tiempoActual - MascotaTrackeada.UltimaVezAlimentado;
             long tiempoDesdeActualizacion = tiempoActual - UltimaActualizacion;
-
+ 
             // Resto el tiempo desde la ultima actualizacion para que no se cuenten segundos mas de una vez
             if (tiempoDesdeAlimentado > tiempoDesdeActualizacion)
             {
@@ -54,10 +53,10 @@ namespace Tamagochi.Models
             }
 
             // el tiempo que no se agrega a ninguna variable es por defecto tiempo satisfecho
-            if (tiempoDesdeAlimentado > this.MascotaTrackeada.TiempoMaximoSinAlimentar )
+            if (tiempoDesdeAlimentado > this.MascotaTrackeada.TiempoMaximoSinAlimentar)
             {
-                TiempoDebil += tiempoDesdeAlimentado - (MascotaTrackeada.TiempoMaximoSinAlimentar);
                 TiempoHambrento += MascotaTrackeada.TiempoMaximoSinAlimentar / 2;
+                TiempoDebil += tiempoDesdeAlimentado - (MascotaTrackeada.TiempoMaximoSinAlimentar);
 
             } else if (tiempoDesdeAlimentado > MascotaTrackeada.TiempoMaximoSinAlimentar / 2)
             {
@@ -69,8 +68,10 @@ namespace Tamagochi.Models
 
         private long getTiempoSatisfecho()
         {
-            // Tiempo actual - tiempo de creacion (tiempo de vida) - (tiempo que estuvo debil + tiempo que estuvo hambriento)
-            return DateTimeOffset.UtcNow.ToUnixTimeSeconds() - (MascotaTrackeada.TiempoDeCreacion - (TiempoDebil + TiempoHambrento));
+           // Tiempo actual - tiempo de creacion (tiempo de vida) - (tiempo que estuvo debil + tiempo que estuvo hambriento)
+
+            var tiempoDeVida = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - MascotaTrackeada.TiempoDeCreacion;
+            return tiempoDeVida - (TiempoDebil + TiempoHambrento);
         }
 
         

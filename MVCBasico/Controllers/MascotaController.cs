@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Tamagochi.Context;
 using Tamagochi.Models;
 using Tamagochi.ViewModels;
@@ -40,7 +41,6 @@ namespace Tamagochi.Controllers
                 Text = e.ToString()
             }).ToList();
 
-
             return View();
         }
 
@@ -64,7 +64,9 @@ namespace Tamagochi.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Profile));
             }
-            return View(mascota);
+
+            TempData["Error"] = "Ocurrio un error al crear la mascota";
+            return View();
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -82,37 +84,17 @@ namespace Tamagochi.Controllers
                 TempData["Error"] = "Ocurrio un Error al eliminar tu Mascota";
                 RedirectToAction(nameof(Profile));
             }
-            if (mascota != null)
-            {
-                _context.Mascota.Remove(mascota);
-            }
+
+            _context.Mascota.Remove(mascota);
             await _context.SaveChangesAsync();
 
             TempData["Error"] = "Mascota Eliminada Exitosamente.";
             return RedirectToAction(nameof(Profile));
         }
-
-        // POST: Mascota/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Mascota == null)
-            {
-                return Problem("Mascota no encontrada");
-            }
-            var mascota = await _context.Mascota.FindAsync(id);
-            if (mascota != null)
-            {
-                _context.Mascota.Remove(mascota);
-            }
-            await _context.SaveChangesAsync();
-            TempData["Error"] = "Mascota eliminada Exitosamente.";
-            return RedirectToAction(nameof(Index));
-        }
         
         private Mascota buscarMascota(List<Mascota> mascotas, int? idMascota)
         {
+            //seteo la primer mascota como devolucion default
             Mascota res = mascotas[0];
             int contador = 1;
             if (idMascota != null) 
@@ -133,7 +115,9 @@ namespace Tamagochi.Controllers
         // Recibe el ID de la mascota que quiere seleccionar el susario, si no seleccionó ninguna devuelve la primer mascota de la lista
         public async Task<IActionResult> Profile(int? id)
         {
+            // Buscamos el usuario que está iniciado (en la cookie)
             int userId = int.Parse(User.FindFirstValue("IdUsuario"));
+            // Buscamos una lista de todas las macotas del usuario
             var mascotas = await _context.Mascota.Where(m => m.UserID == userId).ToListAsync();
             
             if (mascotas.Count == 0)
@@ -155,9 +139,9 @@ namespace Tamagochi.Controllers
 
         public async Task<IActionResult> Alimentar(int id)
         {
-            var mascota_db = await _context.Mascota.FirstOrDefaultAsync(n => n.Id == id);
+            var mascota_db = await _context.Mascota.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (!(mascota_db.Estado == Estado.SATISFECHO)) {
+            if (mascota_db.Estado != Estado.SATISFECHO) {
                 mascota_db.UltimaVezAlimentado = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                 await _context.SaveChangesAsync();
                 TempData["Alimentado"] = "ñam ñam delicius!";
@@ -169,12 +153,6 @@ namespace Tamagochi.Controllers
             return RedirectToAction(nameof(Profile), new {id=id});
         }
 
-        //public int TraerEdad()          //Método TraerEdad
-        //{
-        //    int iAnios;
-        //    iAnios = DateTime.Today.AddTicks(-_fechaNacimiento.Ticks).Year - 1;
-        //    return iAnios;
-        //}
         [HttpGet]
         public async Task<IActionResult> Renombrar(int id)
         {
@@ -189,11 +167,8 @@ namespace Tamagochi.Controllers
             mascota.NombreMascota = nombreMascota;
             await _context.SaveChangesAsync();
 
-
             return RedirectToAction(nameof(Profile), new { id = id });
         }
-
-
 
         private bool MascotaExists(int id)
         {
