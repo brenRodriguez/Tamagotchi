@@ -23,17 +23,17 @@ namespace Tamagochi.Controllers
         public async Task<IActionResult> Estadisticas()
         {
             int idUsuario = int.Parse(User.FindFirstValue("IdUsuario"));
-            Usuario user = await _context.Usuarios.FirstOrDefaultAsync(u => u.UserID == idUsuario);
+            Usuario user = await _context.Usuarios.Include(m => m.Mascotas).ThenInclude(e => e.Estadisticas).FirstOrDefaultAsync(u => u.UserID == idUsuario);
 
             if (user == null)
             {
                 return RedirectToAction("Profile", "Mascota");
             }
 
-            var mascotas = await _context.Mascota.Where(m => m.UserID == idUsuario).ToListAsync();
+            
             List<Estadistica> estadisticas = new List<Estadistica>();
 
-            foreach(Mascota m in mascotas)
+            foreach(Mascota m in user.Mascotas)
             {
                 estadisticas.Add(m.Estadisticas);
             }

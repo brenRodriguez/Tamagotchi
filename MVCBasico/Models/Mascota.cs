@@ -11,6 +11,7 @@ namespace Tamagochi.Models
         {
 
             long tiempoActual = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
             NombreMascota = nombreMascota;
             TipoDeMascota = tipoDeMascota;
             UserID = userID;

@@ -49,7 +49,7 @@ namespace Tamagochi.Models
             // Resto el tiempo desde la ultima actualizacion para que no se cuenten segundos mas de una vez
             if (tiempoDesdeAlimentado > tiempoDesdeActualizacion)
             {
-                tiempoDesdeAlimentado -= tiempoDesdeActualizacion;
+                tiempoDesdeAlimentado = tiempoDesdeActualizacion;
             }
 
             // el tiempo que no se agrega a ninguna variable es por defecto tiempo satisfecho
