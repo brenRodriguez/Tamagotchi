@@ -1,6 +1,6 @@
 # Tamagotchi APP
 
-Este es un proyecto de una aplicación tipo tamagotchi donde el usuario puede tener diferentes mascotas y debe cuidarlas alimentándolas y atendiéndolas adecuadamente.
+Este es un proyecto inspirado en el famoso juego tamagotchi donde el usuario puede tener una o varias mascotas virtuales que debe cuidar adecuadamente.
 
 
 ![Imagen Home](Images/tamagotchi_home0.png)
